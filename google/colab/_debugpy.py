@@ -1,5 +1,6 @@
 """Tools to enable debugpy attachment to a process."""
 
+import sys
 import threading
 import time
 
@@ -8,8 +9,14 @@ from google.colab import _debugpy_repr
 from google.colab import _variable_inspector
 import IPython
 import portpicker
+from pydevd import pydevd_tracing
 
 _dap_port = None
+
+# Disable a warning about pydevd tracing, which is irrelevant for our users.
+pydevd_tracing.TracingFunctionHolder._warn = False  # pylint: disable=protected-access
+# Restore `breakpoint()` use after importing debugpy.
+sys.breakpointhook = sys.__breakpointhook__
 
 
 def enable_attach_async(enable_inspector=False):
