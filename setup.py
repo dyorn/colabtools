@@ -24,7 +24,7 @@ DEPENDENCIES = (
     'ipyparallel==8.8.0',
     'ipython==7.34.0',
     'pandas==2.2.2',
-    'jupyter-server==2.14.0',
+    'jupyter-server==2.18.2',
     'portpicker==1.5.2',
     'requests==2.32.4',
     'tornado==6.5.1',
@@ -40,6 +40,22 @@ setup(
     url='https://colaboratory.research.google.com/',
     packages=find_packages(exclude=('tests*',)),
     install_requires=DEPENDENCIES,
+    # Register the google.colab Jupyter server extensions by dropping their
+    # enable configs into etc/jupyter/jupyter_server_config.d/ at install time.
+    # This is needed because jupyter-server >= 2.16 (PR #1509) requires the
+    # extension to already be present in jpserver_extensions before
+    # `jupyter server extension enable --py ...` will write a config file,
+    # so packages that don't ship their own config can no longer be enabled
+    # via the CLI.
+    data_files=[
+        (
+            'etc/jupyter/jupyter_server_config.d',
+            [
+                'jupyter-config/jupyter_server_config.d/google.colab.json',
+                'jupyter-config/jupyter_server_config.d/google.colab._serverextension.json',
+            ],
+        ),
+    ],
     license='Apache 2.0',
     keywords='google colab ipython jupyter',
     classifiers=(
