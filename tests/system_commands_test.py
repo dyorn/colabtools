@@ -203,6 +203,27 @@ r = %shell read r1 && echo "First: $r1" && read -s r2 && echo "Second: $r2"
     self.assertEqual(1, result.returncode)
     self.assertEqual('', result.output)
 
+  def testExitBuiltinPropagatesByDefault(self):
+    run_cell_result = self.run_cell(textwrap.dedent("""
+      import subprocess
+      try:
+        %shell exit 1
+      except subprocess.CalledProcessError as e:
+        caught_exception = e
+      """))
+    captured_output = run_cell_result.output
+
+    self.assertEqual('', captured_output.stderr)
+    self.assertEqual('', captured_output.stdout)
+    self.assertIn(
+        'caught_exception',
+        self.ip.user_ns,
+        'the default path must raise CalledProcessError',
+    )
+    result = self.ip.user_ns['caught_exception']
+    self.assertEqual(1, result.returncode)
+    self.assertEqual('', result.output)
+
   def testIgnoreErrorsDoesNotPropagate(self):
     run_cell_result = self.run_cell(
         textwrap.dedent(
