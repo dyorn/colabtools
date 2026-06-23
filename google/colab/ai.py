@@ -21,7 +21,7 @@ Example Usage:
     ```
     from google.colab import ai
     response = ai.generate_text("Explain quantum physics.",
-    model_name="google/gemini-2.5-flash")
+    model_name="google/gemini-3.1-pro-preview")
     print(response)
     ```
 """
@@ -35,6 +35,7 @@ import os as _os  # pylint: disable=g-import-not-at-top
 from typing import Any, Generator
 from google.colab import errors as _errors
 from google.colab import userdata as _userdata
+# pylint: disable-next=g-importing-member
 from openai import OpenAI as _OpenAI  # pytype: disable=import-error
 import requests as _requests
 
@@ -49,14 +50,15 @@ class ModelProxyServiceError(Exception):
 
 def generate_text(
     prompt: str,
-    model_name: str = 'google/gemini-2.5-flash',
+    model_name: str = 'google/gemini-3.5-flash',
     stream: bool = False,
 ) -> str | Generator[str, Any, None]:
   """Generates text using the given prompt and model.
 
   Args:
     prompt: The input text or question.
-    model_name: The name of the model to use (e.g., 'google/gemini-2.0-flash').
+    model_name: The name of the model to use (currently defaults to
+      'google/gemini-3.5-flash').
     stream: If `True`, the response will be streamed back in chunks. If `False`,
       the complete generated text will be returned at once.
 
