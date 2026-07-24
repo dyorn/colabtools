@@ -30,7 +30,7 @@ def get_per_kernel_ram_usage(kernel_manager) -> dict[str, int]:
   """
 
   def get_pid(kernel):
-    # TODO: b/264409633 - Eliminate this function after migration to
+    # TODO: Eliminate this function after migration to
     # jupyter-client 7.x is complete.
     try:
       pid = kernel.provisioner.pid

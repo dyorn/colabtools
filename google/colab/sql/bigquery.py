@@ -30,7 +30,7 @@ class TableReference(TypedDict):
   table_id: str
 
 
-# TODO: b/421959485 - Use NotRequired once for optional fields.
+# TODO: Use NotRequired once for optional fields.
 class TableSchemaEntry(TypedDict):
   """An item in the schema of a BigQuery table."""
 

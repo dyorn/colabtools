@@ -117,7 +117,7 @@ def _check_adc(credential_type=_CredentialType.NO_CHECK):
   from google.oauth2.service_account import Credentials as _ServiceAccountCredentials  # pylint: disable=g-import-not-at-top
 
   if credential_type == _CredentialType.SERVICE_ACCOUNT:
-    # TODO We should call refresh() on service account credentials
+    # TODO: We should call refresh() on service account credentials
     # as well.
     return isinstance(creds, _ServiceAccountCredentials)
   try:
