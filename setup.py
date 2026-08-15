@@ -23,7 +23,7 @@ DEPENDENCIES = (
     'ipykernel==6.17.1',
     'ipyparallel==8.8.0',
     'ipython==7.34.0',
-    'pandas==2.2.2',
+    'pandas==2.2.3',
     'jupyter-server==2.20.0',
     'portpicker==1.5.2',
     'requests==2.32.4',
